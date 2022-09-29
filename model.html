@@ -1,0 +1,183 @@
+<div class="support panel">
+    <h1>{{ 'SUPPORT.QUESTION' | translate}}</h1>
+  
+    <div class="ribbon row">
+      <div class="col-xs-12">
+        <h2>{{ 'SUPPORT.ABOUT' | translate}}</h2>
+        <p class="available">{{countryContents.support_hours[userLanguage] || Object.values(countryContents.support_hours)[0]}}</p>
+      </div>
+      <div class="ad-bookmark phone border">
+        <i class="fa fa-phone"></i>
+        <a class="contact" href="tel:{{countryContents.support_phone.replaceAll(' ', '').replaceAll('-', '')}}">{{countryContents.support_phone}}</a>
+      </div>
+      <div class="ad-bookmark email border">
+        <i class="fa fa-envelope-o"></i>
+        <a class="contact" href="mailto:{{countryContents.support_email}}">{{countryContents.support_email}}</a>
+      </div>
+      <div class="ad-bookmark status-server">
+        <i class="fa fa-line-chart"></i>
+        <a class="contact" href="http://status.audyx.com" target="_blank">{{'STATUS.PAGE' | translate}}</a>
+      </div>
+    </div>
+  
+    <div class="resources row">
+      <div class="col-xs-6">
+        <div class="about-audyx">
+          <h2>{{ 'SUPPORT.ABOUT_AUDYX_HEADER' | translate}}</h2>
+          <h4>{{ 'SUPPORT.ABOUT_AUDYX' | translate}}</h4>
+        </div>
+        <div class="versions" ng-init="page = 'version2_4'">
+          <h2 class="title">{{ 'SUPPORT.INNOVATIONS' | translate}}</h2>
+          <div class="icon"></div>
+  
+          <div class="btn-group audyx-app-version">
+            <button type="button"
+                    class="btn btn-default"
+                    ng-class="{ active: page === 'version2_4' }"
+                    ng-click="page = 'version2_4'">
+              <h4>{{ formatDate('2022-3') }}<i class="fa fa-check"></i></h4>
+              <h5>2.4.0.0</h5>
+            </button>
+            <button type="button"
+                    class="btn btn-default"
+                    ng-class="{ active: page === 'version2_3' }"
+                    ng-click="page = 'version2_3'">
+              <h4>{{ formatDate('2021-5') }}</h4>
+              <h5>2.3.0.0</h5>
+            </button>
+            <button type="button"
+                    class="btn btn-default"
+                    ng-class="{ active: page === 'version2_2' }"
+                    ng-click="page = 'version2_2'">
+              <h4>{{ formatDate('2020-9') }}</h4>
+              <h5>2.2.0.0</h5>
+            </button>
+            <button type="button"
+                    class="btn btn-default"
+                    ng-class="{ active: page === 'version2_1' }"
+                    ng-click="page = 'version2_1'">
+              <h4>{{ formatDate('2020-6') }}</h4>
+              <h5>2.1.0.0</h5>
+            </button>
+            <button type="button"
+                    class="btn btn-default"
+                    ng-class="{ active: page === 'version1_22' }"
+                    ng-click="page = 'version1_22'">
+              <h4>{{ formatDate('2020-1') }}</h4>
+              <h5>1.22.0.0</h5>
+            </button>
+            <button type="button"
+                    class="btn btn-default"
+                    ng-class="{ active: page === 'version1_21' }"
+                    ng-click="page = 'version1_21'">
+              <h4>{{ formatDate('2019-4') }}</h4>
+              <h5>1.21.0.0</h5>
+            </button>
+          </div>
+  
+          <div class="animate-switch-container">
+            <div class="animate-switch"
+               ng-if="page === 'version2_4'"
+               ng-include="getTemplate('2_4')"></div>
+            <div class="animate-switch"
+               ng-if="page === 'version2_3'"
+               ng-include="getTemplate('2_3')"></div>
+            <div class="animate-switch"
+               ng-if="page === 'version2_2'"
+               ng-include="getTemplate('2_2')"></div>
+            <div class="animate-switch"
+               ng-if="page === 'version2_1'"
+               ng-include="getTemplate('2_1')"></div>
+            <div class="animate-switch"
+               ng-if="page === 'version1_22'"
+               ng-include="getTemplate('1_22')"></div>
+            <div class="animate-switch"
+               ng-if="page === 'version1_21'"
+               ng-include="getTemplate('1_21')"></div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xs-6 list">
+        <h3>{{ 'SUPPORT.RESOURCES' | translate}}</h3>
+        <p class="row">
+          <a href="{{ ifuUrl }}" ng-click="sendEvent('ifu-download')" target="_blank" download>
+            <button class="download-module">
+              <i class="fa fa-download"></i>
+              <span class="download-description">{{ 'SUPPORT.IFU' | translate}}</span>
+              <div class="ifu-icon"></div>
+            </button>
+          </a>
+        </p>
+        <p class="row" ng-if="countryContents['show_gdpr?']">
+          <a href="{{ dppUrl }}" ng-click="sendEvent('dpp-download')" target="_blank" download>
+            <button class="download-module">
+              <i class="fa fa-download"></i>
+              <span class="download-description">{{ 'SUPPORT.DPP' | translate}}</span>
+              <i class="fa au-pdf fa-file-pdf-o"></i>
+            </button>
+          </a>
+        </p>
+        <p class="row">
+          <a href="{{ noahUrl }}" ng-click="sendEvent('noah-module-download')">
+            <button class="download-module">
+              <i class="fa fa-download"></i>
+              <span class="download-description">{{ 'SUPPORT.NOAH.LINK' | translate}}</span>
+              <i class="noah-ax-icon"></i>
+            </button>
+          </a>
+        </p>
+        <p>{{ 'SUPPORT.NOAH.DESCRIPTION' | translate }}.
+          <a href="{{ readmeUrl }}" target="_blank">
+            <span class="description">{{ 'SUPPORT.NOAH.README' | translate}}</span>
+          </a>
+        </p>
+        <div>UDI: {{udiNumber}}</div>
+        <div ng-show="countryContents.device_identification">{{countryContents.device_identification}}</div>
+        <div class="legal-disclaimer">
+          <p>{{countryContents.legal_disclaimer[userLanguage] || Object.values(countryContents.legal_disclaimer)[0]}}</p>
+        </div>
+      </div>
+      <div class="col-xs-6 list">
+        <div class="ce-wrapper"
+             ng-show="countryContents['show_ce_details?']">
+          <div class="ce-icon"></div>
+          <div class="ce-number">{{ ceNumber }}</div>
+        </div>
+        <div ng-if="pluggedIn">
+          <h3>{{ 'SUPPORT.LEGAL.HEADER' | translate}}</h3>
+        </div>
+        <div class="company-data">
+          <div class="manufacturer-data">
+            <div class="icon"></div>
+            <div class="text">
+              <div class="name">{{countryContents.manufacturer.name}}</div>
+              <div
+                ng-repeat="address in countryContents.manufacturer.address_details">
+                {{address}}
+              </div>
+              <div>
+                Website: <a target="_blank"
+                            href="{{countryContents.manufacturer.site_url}}">
+                          {{countryContents.manufacturer.site_name}}
+                         </a>
+              </div>
+            </div>
+          </div>
+          <div class="european-authorized-data"
+               ng-show="countryContents['show_ce_details?']">
+            <div class="icon"></div>
+            <div class="text">
+              <div class="name">CEpartner4U</div>
+              <div>Esdoornlaan 13</div>
+              <div>3951 DB Maarn</div>
+              <div>The Netherlands</div>
+              <div>Tel: + 31.343.442.524</div>
+              <div>Fax: + 31.343.442.162</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
