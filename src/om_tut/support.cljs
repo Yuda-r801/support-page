@@ -1,30 +1,31 @@
 (ns om-tut.support
-    (:require [om.core :as om :include-macros true]
-              [om.dom :as dom :include-macros true]))
+  (:require [om.core :as om :include-macros true]
+            [om.dom :as dom :include-macros true]))
 
 ;;;;;;;;;;;;;LIVE SUPPORT TEMPLATE;;;;;;;;;;;;;;
 
 (defn live-support-title []
   (dom/div  #js {:className "col-xs-12"}
+            (dom/button #js {:type "button" :className "btn btn-primary"} "123")
             (dom/h2 nil "{{'SUPPORT.ABOUT' | translate}}")
-            (dom/p #js {:className "available"} "{{countryContents.support_hours [userLanguage] || Object.values (countryContents.support_hours) [0]}}")))
-
+            (dom/p #js {:className "available"}) "{{countryContents.support_hours [userLanguage] || Object.values (countryContents.support_hours) [0]}}"
+            ))
 (defn live-support-phone []
   (dom/div  #js {:className "ad-bookmark phone border"}
-            (dom/i #js {:className "fa fa-phone"})
-            (dom/a  #js {:className "contact"});;  href= "tel:{{countryContents.support_phone.replaceAll(' ', '').replaceAll('-', '')}}" > {{countryContents.support_phone}}       
+            (dom/i #js {:className "fa fa-phone"} "fa fa-phone")
+            (dom/a  #js {:className "contact"}"phone");;  href= "tel:{{countryContents.support_phone.replaceAll(' ', '').replaceAll('-', '')}}" > {{countryContents.support_phone}}       
             ))
 
 (defn live-support-email []
   (dom/div  #js {:className "ad-bookmark email border"}
-            (dom/i #js {:className "fa fa-envelope-o"})
-            (dom/a  #js {:className "contact"});;   href= "mailto:{{countryContents.support_email}}" > {{countryContents.support_email}}       
+            (dom/i #js {:className "fa fa-envelope-o"} "fa fa-envelope-o" )
+            (dom/a  #js {:className "contact"} "email");;   href= "mailto:{{countryContents.support_email}}" > {{countryContents.support_email}}       
             ))
 
 (defn live-support-server-uptime []
   (dom/div  #js {:className "ad-bookmark status-server"}
-            (dom/i #js {:className "fa fa-line-chart"})
-            (dom/a  #js {:className "contact"});;   href= "http://status.audyx.com" target= "_blank" > {{'STATUS.PAGE' | translate}}       
+            (dom/i #js {:className "fa fa-line-chart"} "fa-line")
+            (dom/a  #js {:className "contact"} "server");;   href= "http://status.audyx.com" target= "_blank" > {{'STATUS.PAGE' | translate}}       
             ))
 
 (defn live-support []
