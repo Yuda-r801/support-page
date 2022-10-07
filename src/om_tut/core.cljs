@@ -4,7 +4,7 @@
             ;; [bootstrap-cljs :as bs :include-macros true]
             ;; [om-bootstrap.button :as b]
             [om-tut.navbar :refer [navbar-view]]
-            [om-tut.support :refer [live-support]]))
+            [om-tut.support :refer [support]]))
 ;; define your app data so that it doesn't get over-written on reload
 
 (defonce app-state (atom {:text "Hello world"}))
@@ -14,10 +14,10 @@
    (reify
      om/IRender
      (render [_]
-       (live-support))))
- app-state 
-{:target (. js/document (getElementById "app"))})
+       (support))))
+ app-state
+ {:target (. js/document (getElementById "app"))})
 
 #_(defn stripe [text bgc]
-  (let [st #js {:backgroundColor bgc}]
-    (dom/li #js {:style st} text)))
+    (let [st #js {:backgroundColor bgc}]
+      (dom/li #js {:style st} text)))
