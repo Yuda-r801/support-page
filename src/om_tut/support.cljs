@@ -37,7 +37,7 @@
 
 ;;;;;;;;;;;;;;;;ABOUT COMPONENT;;;;;;;;;;;;;;;;;
 
-(def version (atom {:version "version2_4"}))
+(def version (atom "version2_4"))
 
 (defn about-audyx []
   (dom/div  #js {:className "about-audix"}
@@ -46,50 +46,46 @@
 
 (defn version-buttons []
   (dom/div #js {:className "btn-group audyx-app-version"}
-           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version {:version "version2_4"})}
+           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version "version2_4")}
                        (dom/h4 nil "{{ formatDate('2022-3') }}"
                                (dom/i #js {:className "fa fa-check"}))
                        (dom/h5 nil "2.4.0.0"))
-           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version {:version "version2_3"})}
+           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version "version2_3")}
                        (dom/h4 nil "{{ formatDate('2021-5') }}"
                                (dom/i #js {:className "fa fa-check"}))
                        (dom/h5 nil "2.3.0.0"))
-           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version {:version "version2_2"})}
+           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version "version2_2")}
                        (dom/h4 nil "{{ formatDate('2020-9') }}"
                                (dom/i #js {:className "fa fa-check"}))
                        (dom/h5 nil "2.2.0.0"))
-           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version {:version "version2_1"})}
+           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version "version2_1")}
                        (dom/h4 nil "{{ formatDate('2020-6') }}"
                                (dom/i #js {:className "fa fa-check"}))
                        (dom/h5 nil "2.1.0.0"))
-           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version {:version "version1_22"})}
+           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version "version1_22")}
                        (dom/h4 nil "{{ formatDate('2020-1') }}"
                                (dom/i #js {:className "fa fa-check"}))
                        (dom/h5 nil "1.22.0.0"))
-           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version {:version "version1_21"})}
+           (dom/button #js {:type "button" :className "btn btn-default" :onClick #(reset! version "version1_21")}
                        (dom/h4 nil "{{ formatDate('2019-4') }}"
                                (dom/i #js {:className "fa fa-check"}))
                        (dom/h5 nil "1.21.0.0"))))
 
 (defn animate-switch-container []
-  (let [hide #js {:visibility "hidden"} color #js {:visibility "green"}]
+  (let [hide #js {:visibility "hidden"} color {"backgroundColor" "green"}]
     (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch" } "not ever1"))
-    (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch" } "not ever2"))
-    (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch" } "not ever3"))
-    (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch" } "not ever4"))
-    (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch" } "not ever5"))
-    (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch" } "not ever6"))))
+              (dom/div #js {:className "animate-switch"}
+                       (when (= version "version2_4") #js {:style color}) "not ever1")
+              (dom/div #js {:className "animate-switch"} "not ever2")
+              (dom/div #js {:className "animate-switch"} "not ever3")
+              (dom/div #js {:className "animate-switch"} "not ever4")
+              (dom/div #js {:className "animate-switch"} "not ever5")
+              (dom/div #js {:className "animate-switch"} "not ever6"))))
 
 ;; :style [color hide]
 (defn support []
   (dom/div nil
-;;    #js {:className "ribbon row"}
+;;    #js {:className ribbon row"}
            (live-support)
            (about-audyx)
            (version-buttons)
@@ -104,7 +100,6 @@
 ;;        ng-if="page === 'version2_3'"
 ;;        ng-include="getTemplate('2_3')"></div>
 ;;     <div class="animate-switch"
-;;        ng-if="page === 'version2_2'"
 ;;        ng-include="getTemplate('2_2')"></div>
 ;;        ng-if="page === 'version2_1'"
 ;;     <div class="animate-switch"
