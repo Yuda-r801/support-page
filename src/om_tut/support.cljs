@@ -72,17 +72,21 @@
                        (dom/h5 nil "1.21.0.0"))))
 
 (defn animate-switch-container []
-  (let [hide #js {:visibility "hidden"} color {"backgroundColor" "green"}]
-    (dom/div  #js {:className "animate-switch-container"}
-              (dom/div #js {:className "animate-switch"}
-                       (when (= version "version2_4") #js {:style color}) "not ever1")
-              (dom/div #js {:className "animate-switch"} "not ever2")
-              (dom/div #js {:className "animate-switch"} "not ever3")
-              (dom/div #js {:className "animate-switch"} "not ever4")
-              (dom/div #js {:className "animate-switch"} "not ever5")
-              (dom/div #js {:className "animate-switch"} "not ever6"))))
+  (let [hide #js {:display "none"} color #js {:backgroundColor "green"}]
+    (dom/div  #js {:className "animate-switch-container"} 
+              (dom/div #js {:className "animate-switch" :style 
+                            (when-not (= @version "version2_4") hide)} "not ever1")
+              (dom/div #js {:className "animate-switch" :style
+                            (when-not (= @version "version2_3") hide)} "not ever2")
+              (dom/div #js {:className "animate-switch" :style
+                            (when-not (= @version "version2_2") hide)} "not ever3")
+              (dom/div #js {:className "animate-switch" :style
+                            (when-not (= @version "version2_1") hide)} "not ever4")
+              (dom/div #js {:className "animate-switch" :style
+                            (when-not (= @version "version1_22") hide)} "not ever5")
+              (dom/div #js {:className "animate-switch" :style
+                            (when-not (= @version "version1_21") hide)} "not ever6"))))
 
-;; :style [color hide]
 (defn support []
   (dom/div nil
 ;;    #js {:className ribbon row"}
@@ -91,23 +95,28 @@
            (version-buttons)
            (animate-switch-container)))
 
+#_(deftry support-view [_ owner]
+  (reify
+    om/IRenderState
+    (render-state [_ state]
+      (let [$translate ((om/get-shared owner :filter) "translate")]
+        (dom/div #js {:className (str "row legends-view test-panel-animation display-legends-view" (when display-legends? " enlarged"))}
+                 (dom/div #js {:className "display-legends"
+                               :onClick #(put! (om/get-state owner :chan-legends-toggle-display) (not display-legends?))} "...")
+                 (apply dom/div #js {:className "legends-container"}
+                        (concat
+                         (mapv (partial build-grouped-legend owner state display-legends?) tests)
+                         (if normo (vector (om/build legend-normo-view (assoc normo :collapsed-legends? (not display-legends?)))) [])))
+                 (when (not-empty noah-tests)
+                   (separator-view $translate))
+                 (apply dom/div nil
+                        (mapv (partial build-grouped-legend owner state display-legends?) noah-tests)))))))
 
-;;   <div class="animate-switch-container">
-;;     <div class="animate-switch"
-;;        ng-if="page === 'version2_4'"
-;;        ng-include="getTemplate('2_4')"></div>
-;;     <div class="animate-switch"
-;;        ng-if="page === 'version2_3'"
-;;        ng-include="getTemplate('2_3')"></div>
-;;     <div class="animate-switch"
-;;        ng-include="getTemplate('2_2')"></div>
-;;        ng-if="page === 'version2_1'"
-;;     <div class="animate-switch"
-;;        ng-include="getTemplate('2_1')"></div>
-;;     <div class="animate-switch"
-;;        ng-if="page === 'version1_22'"
-;;        ng-include="getTemplate('1_22')"></div>
-;;     <div class="animate-switch"
-;;        ng-if="page === 'version1_21'"
-;;        ng-include="getTemplate('1_21')"></div>
-;;   </div>
+(defn support1 [data owner]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:version "version1_21"})
+    om/IRenderState
+    (render-state [this state]
+     )))
