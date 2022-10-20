@@ -1,7 +1,9 @@
-(ns om-tut.support
+(ns audyx.support-page.support
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [cljs.core.async :as a]))
+
+(def app-data [])
 
 ;;;;;;;;;;;;;LIVE SUPPORT TEMPLATE;;;;;;;;;;;;;;
 
@@ -37,7 +39,6 @@
 
 ;;;;;;;;;;;;;;;;ABOUT COMPONENT;;;;;;;;;;;;;;;;;
 
-(def app-data " ")
 ;; (def versions ["version2_4" "version2_3" "version2_2" "version2_1" "version1_22" "version2_4"])
 
 (defn about-audyx []
@@ -94,12 +95,13 @@
     om/IInitState
     (init-state [_]
       {:version "version2_4"})
-    om/IRender
-    (render[_]
+    om/IRenderState
+    (render-state [_]
       (dom/div #js {:className "support panel"}
                (live-support)
                (about-audyx)
                (version-buttons owner)
                (animate-switch-container owner)))))
 
-(om/root support app-data {:target (. js/document (getElementById "app"))})
+(defn create-support-view []
+  (om/root support app-data {:target (. js/document (getElementById "support"))}))
